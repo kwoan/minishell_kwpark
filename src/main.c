@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 15:35:42 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 16:57:15 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*home;
 	t_list	*envp_lst;
 	t_list	*cmd;
-
 
 	(void)argc;
 	(void)argv;

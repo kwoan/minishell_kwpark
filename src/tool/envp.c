@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 12:29:23 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/19 16:11:07 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 17:00:57 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ static int	get_lst_size(t_list *lst)
 	size = 0;
 	while (lst)
 	{
-		if (ft_strncmp(lst->content, "?", 1) == 0)
-		{
-			lst = lst->next;
-			continue ;
-		}
 		size++;
 		lst = lst->next;
 	}
@@ -42,11 +37,6 @@ char	**lst_to_arr(t_list *lst)
 	size = 0;
 	while (lst)
 	{
-		if (ft_strncmp(lst->content, "?", 1) == 0)
-		{
-			lst = lst->next;
-			continue ;
-		}
 		dest[size++] = strdup(lst->content);
 		if (!dest[size - 1])
 		{
