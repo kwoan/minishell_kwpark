@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 16:57:15 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 18:05:25 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	run_cmd(t_list *cmd, t_list *env_lst, t_fd_data *data, char *home)
 		dup_infile(infile, data);
 	if (outfile)
 		dup_outfile(outfile);
-	search_cmd(argv, env_lst, home, data);
+	if (argv[0])
+		search_cmd(argv, env_lst, home, data);
 	ft_lstclear(&infile, free);
 	ft_lstclear(&outfile, free);
 	free_str_arr(argv);
