@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 14:20:21 by taehyunk          #+#    #+#              #
-#    Updated: 2022/12/21 14:37:04 by taehyunk         ###   ########seoul.kr   #
+#    Updated: 2023/01/08 12:31:01 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@
  SRCS_DIR	= ./src/
  OBJS_DIR	= ./obj/
 
- SRC =  main.c \
+ SRC =  _main.c \
 		builtin/ft_pwd.c \
 		builtin/ft_env.c \
 		builtin/ft_unset.c \
