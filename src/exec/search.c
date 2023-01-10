@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:39:06 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 13:10:17 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/10 15:02:32 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	search_cmd(char **argv, t_list *env_lst, char *home, t_fd_data *data)
 	else if (ft_strncmp(argv[0], "unset", 6) == 0)
 		g_exit_code = ft_unset(env_lst, argv);
 	else
-		g_exit_code = ft_exec(env_lst, argv) / 256;
+		ft_exec(env_lst, argv);
+	printf("exit: %d\n", g_exit_code);
 }

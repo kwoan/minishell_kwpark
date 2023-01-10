@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 13:10:02 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/10 13:05:29 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char	*remove_dollar(t_list *envp_lst, char *str);
 void	free_str_arr(char **arr);
 void	print_error_msg(char *cmd, char *str, char *msg);
 void	print_error_msg2(char *cmd, char *str, char *msg);
+void	print_error_msg3(char *cmd, char *str, char *msg);
 //ft_strndup.c
 char	*ft_strndup(const char *s, size_t size);
 //ft_list.c
