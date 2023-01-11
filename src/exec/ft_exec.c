@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:22:31 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/10 15:04:41 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/11 11:40:48 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ft_exec(t_list *env_lst, char **argv)
 	char	**envp;
 	int		status;
 
-	g_exit_code = 0;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -68,13 +67,12 @@ int	ft_exec(t_list *env_lst, char **argv)
 			print_error_msg2(argv[0], "", "command not found\n");
 		else
 			print_error_msg3(argv[0], "", strerror(errno));
-		free_str_arr(envp);
-		free_str_arr(path);
-		exit(errno);
+		if (!ft_strchr(argv[0], '/'))
+			exit(127);
+		else
+			exit(126);
 	}
 	else
 		waitpid(pid, &status, 0);
-	printf("status: %d\n", status % 128);
-	printf("status: %d\n", status);
-	return (status);
+	return (status >> 8);
 }
