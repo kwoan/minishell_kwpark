@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 13:17:58 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 15:04:27 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/11 14:20:56 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 	}
 }
 
+static void	replace_dollar_dq(t_list *e_lst, char **strs, int i)
+{
+	char	**sub_strs;
+	int		idx;
+
+	
+}
+
 char	*remove_dollar(t_list *envp_lst, char *str)
 {
 	char	**strs;
@@ -102,7 +110,9 @@ char	*remove_dollar(t_list *envp_lst, char *str)
 	dest = ft_strdup("");
 	while (strs[i])
 	{
-		if (strs[i][0] == '$' && strs[i][1])
+		if (strs[i][0] == '\"' && ft_strchr(strs[i] + 1, '\"'))
+			replace_dollar_dq(envp_lst, strs, i);
+		else if (strs[i][0] == '$' && strs[i][1])
 			replace_dollar(envp_lst, strs, i);
 		temp = dest;
 		dest = ft_strjoin(dest, strs[i]);

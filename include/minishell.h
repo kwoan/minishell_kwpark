@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 13:10:02 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/08 21:17:01 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	g_exit_code;
 
 typedef struct s_list
 {
-	void				*content;
+	// void				*content;
+	char				*content;
 	int					type;
 	struct s_list		*next;
 }	t_list;

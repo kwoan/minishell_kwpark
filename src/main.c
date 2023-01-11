@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 18:05:25 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/11 13:40:03 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ void	loop_cmd(t_list *cmd, t_list *envp_lst, char *home)
 	fd_close(data.backup);
 }
 
+t_list  *parse(char *line, t_list *envp_lst)
+{
+	t_list  *cmd;
+	t_list  *tmp;
+
+	cmd = ft_split_lst(line, ' ');
+	tmp = cmd;
+	while (tmp)
+	{
+		tmp->content = remove_dollar(envp_lst, tmp->content);
+		tmp->content = remove_quote(tmp->content);
+		tmp = tmp->next;
+	}
+	return (cmd);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -81,7 +97,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("\033[1Aminishell $ exit\n");
 			break ;
 		}
-		cmd = ft_split_lst(line, ' ');
+		// cmd = ft_split_lst(line, ' ');
+		cmd = parse(line, envp_lst);
 		if (cmd)
 		{
 			check_type(cmd);
