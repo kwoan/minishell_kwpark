@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:11:48 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/19 15:58:35 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/12 14:42:52 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_cd(t_list *envp_lst, char *directory, char *home)
 
 	key = "HOME";
 	ret = 1;
-	if (directory && ft_strncmp(directory, "-", 2))
+	if (directory && !ft_strncmp(directory, "-", 2))
 		key = "OLDPWD";
 	value = get_envp_value(envp_lst, key);
 	if (!directory || !ft_strncmp(directory, "~", 2)
