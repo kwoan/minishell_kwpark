@@ -12,32 +12,33 @@
 
 #include "../../include/minishell.h"
 
-static int  check_sep(char *s, char opened_quote, size_t len)
+static int	check_sep(char *s, char opened_quote, size_t len)
 {
-    if (!opened_quote)
-    {
-        if (s[len] == '\'' || s[len] == '\"')
-        {
-            if (!ft_strchr(s + len + 1, s[len]))
-                return (0);
-            else
-                return (1);
-        }
-        else if (s[len] == '|' || s[len] == '<' || s[len] == '>')
-        {
-            if (len == 0 && (!ft_strncmp(s, "<<", 2) || !ft_strncmp(s, ">>", 2)))
-                return (4);
-            else if (len == 0)
-                return (5);
-            return (3);
-        }
-        else if (s[len] == ' ')
-            return (3);
-    }
-    else
-        if (opened_quote == s[len])
-            return (2);
-    return (0);
+	if (!opened_quote)
+	{
+		if (s[len] == '\'' || s[len] == '\"')
+		{
+			if (!ft_strchr(s + len + 1, s[len]))
+				return (0);
+			else
+				return (1);
+		}
+		else if (s[len] == '|' || s[len] == '<' || s[len] == '>')
+		{
+			if (len == 0 && \
+				(!ft_strncmp(s, "<<", 2) || !ft_strncmp(s, ">>", 2)))
+				return (4);
+			else if (len == 0)
+				return (5);
+			return (3);
+		}
+		else if (s[len] == ' ')
+			return (3);
+	}
+	else
+		if (opened_quote == s[len])
+			return (2);
+	return (0);
 }
 
 static size_t	check_quote(char **s, char c)

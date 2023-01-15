@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 13:17:58 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/15 16:20:35 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/15 17:24:20 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 			temp = strs[i];
 			strs[i] = ft_itoa(g_exit_code);
 			free(temp);
-			break;
+			break ;
 		}
 		else if ((strs[i][1] == '\'' && ft_strchr(strs[i] + 2, '\'')) || \
 					(strs[i][1] == '\"' && ft_strchr(strs[i] + 2, '\"')))
@@ -84,7 +84,7 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 			temp = strs[i];
 			strs[i] = ft_strdup(strs[i] + 1);
 			free(temp);
-			break;
+			break ;
 		}
 		else if (ft_strncmp(e_lst->content, strs[i] + 1, ft_strlen(strs[i] + 1)) == 0
 			&& ((char *)e_lst->content)[ft_strlen(strs[i] + 1)] == '=')
