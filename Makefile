@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 14:20:21 by taehyunk          #+#    #+#              #
-#    Updated: 2022/12/21 14:37:04 by taehyunk         ###   ########seoul.kr   #
+#    Updated: 2023/01/15 17:31:36 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@
 		tool/ft_split_lst.c \
 		tool/ft_split_dollar.c \
 		tool/ft_strndup.c \
-		tool/remove.c \
+		tool/remove_dollar.c \
+		tool/remove_quote.c \
 		tool/free.c \
 		tool/ft_cmd_lst.c \
 		tool/check.c \
