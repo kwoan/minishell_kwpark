@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/15 16:17:49 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/15 16:19:20 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ int	main(int argc, char **argv, char **envp)
 			printf("\033[1Aminishell $ exit\n");
 			break ;
 		}
-		cmd = ft_split_lst(line, ' ');
+		cmd = parse(line, envp_lst);
 		if (cmd)
 		{
-			check_type(cmd);
+			// check_type(cmd);
 			loop_cmd(cmd, envp_lst, home);
 			envp_lst = check_lst(envp_lst);
 		}
