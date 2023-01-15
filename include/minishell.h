@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/15 16:18:03 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/15 16:24:50 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ void	fd_close(int fd[2]);
 //ft_split_m.c
 char	**ft_split_m(char const *s, char c);
 //ft_split_dollar.c
-char	**ft_split_dollar(char const *s, char c);
+size_t	dollar_check_quote(char const *s, char c);
+size_t	dollar_check_quote_dq(char const *s, char c);
+char	**ft_split_dollar(char const *s, char c, size_t (*f)(char const *s1, char c1));
 //ft_split_lst.c
 t_list	*ft_split_lst(char *s, char c);
 //remove.c
 char	*remove_quote(char *str);
-char	*remove_dollar(t_list *envp_lst, char *str);
+char	*remove_dollar(t_list *envp_lst, char *str, size_t (*f)(char const *s1, char c1));
 //free.c
 void	free_str_arr(char **arr);
 void	print_error_msg(char *cmd, char *str, char *msg);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_dollar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/03 12:40:57 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/03 12:40:57 by taehyunk         ###   ########seoul.kr  */
+/*   Created: 2023/01/15 16:22:51 by kwpark            #+#    #+#             */
+/*   Updated: 2023/01/15 16:22:51 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static size_t	check_quote(char const *s, char c)
+size_t	dollar_check_quote(char const *s, char c)
 {
 	size_t	len;
 	char	temp;
@@ -23,6 +23,11 @@ static size_t	check_quote(char const *s, char c)
 	{
 		if (!temp && s[len] == c)
 			break ;
+		else if (!temp && s[len] == '?')
+		{
+			len++;
+			break;
+		}
 		else if (len == 0 && (s[len] == '\'' || s[len] == '\"'))
 			temp = s[len];
 		else if (!temp && (s[len] == '\'' || s[len] == '\"'))
@@ -37,7 +42,27 @@ static size_t	check_quote(char const *s, char c)
 	return (len);
 }
 
-static size_t	get_size(char const *s, char c)
+size_t	dollar_check_quote_dq(char const *s, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+	{
+		if (s[len] == c)
+			break ;
+		else if (s[len] == '\'' || s[len] == '\"' || s[len] == ' ')
+		{
+			if (len == 0)
+				len++;
+			break;
+		}
+		len++;
+	}
+	return (len);
+}
+
+static size_t	get_size(char const *s, char c, size_t (*f)(char const *s1, char c1))
 {
 	size_t	cnt;
 	size_t	len;
@@ -47,7 +72,7 @@ static size_t	get_size(char const *s, char c)
 	{
 		if (*s == c)
 			s++;
-		len = check_quote(s, c);
+		len = (*f)(s, c);
 		if (len == 0 && s[len])
 			len++;
 		s += len;
@@ -64,7 +89,7 @@ static int	free_strs(char **strs, size_t idx)
 	return (0);
 }
 
-static int	set_strs(size_t size, char **strs, char const *s, char c)
+static int	set_strs(size_t size, char **strs, char const *s, char c, size_t (*f)(char const *s1, char c1))
 {
 	size_t	idx;
 	size_t	len;
@@ -73,11 +98,11 @@ static int	set_strs(size_t size, char **strs, char const *s, char c)
 	while (idx < size)
 	{
 		if (*s == c)
-			len = check_quote(s + 1, c) + 1;
+			len = (*f)(s + 1, c) + 1;
 		else
-			len = check_quote(s, c);
-		if (len == 1 && s[len])
-			len++;
+			len = (*f)(s, c);
+		// if (len == 1 && s[len])
+		// 	len++;
 		strs[idx] = (char *)malloc(len + 1);
 		if (!strs[idx])
 			return (free_strs(strs, idx));
@@ -89,16 +114,16 @@ static int	set_strs(size_t size, char **strs, char const *s, char c)
 	return (1);
 }
 
-char	**ft_split_dollar(char const *s, char c)
+char	**ft_split_dollar(char const *s, char c, size_t (*f)(char const *s1, char c1))
 {
 	size_t	size;
 	char	**strs;
 
-	size = get_size(s, c);
+	size = get_size(s, c, f);
 	strs = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!strs)
 		return (NULL);
-	if (!set_strs(size, strs, s, c))
+	if (!set_strs(size, strs, s, c, f))
 		return (NULL);
 	return (strs);
 }
