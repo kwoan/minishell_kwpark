@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 13:17:58 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 15:04:27 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/15 16:20:35 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,22 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 
 	while (e_lst)
 	{
-		if (ft_strncmp(e_lst->content, strs[i] + 1, ft_strlen(strs[i] + 1)) == 0
+		if (strs[i][1] == '?')
+		{
+			temp = strs[i];
+			strs[i] = ft_itoa(g_exit_code);
+			free(temp);
+			break;
+		}
+		else if ((strs[i][1] == '\'' && ft_strchr(strs[i] + 2, '\'')) || \
+					(strs[i][1] == '\"' && ft_strchr(strs[i] + 2, '\"')))
+		{
+			temp = strs[i];
+			strs[i] = ft_strdup(strs[i] + 1);
+			free(temp);
+			break;
+		}
+		else if (ft_strncmp(e_lst->content, strs[i] + 1, ft_strlen(strs[i] + 1)) == 0
 			&& ((char *)e_lst->content)[ft_strlen(strs[i] + 1)] == '=')
 		{
 			temp = strs[i];
@@ -88,7 +103,7 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 	}
 }
 
-char	*remove_dollar(t_list *envp_lst, char *str)
+char	*remove_dollar(t_list *envp_lst, char *str, size_t (*f)(char const *s1, char c1))
 {
 	char	**strs;
 	char	*dest;
@@ -97,11 +112,17 @@ char	*remove_dollar(t_list *envp_lst, char *str)
 
 	if (check_dollar(str))
 		return (str);
-	strs = ft_split_dollar(str, '$');
+	strs = ft_split_dollar(str, '$', f);
 	i = 0;
 	dest = ft_strdup("");
 	while (strs[i])
 	{
+		if (strs[i][0] == '\"' && ft_strchr(strs[i], '\"'))
+		{
+			// temp = strs[i];
+			strs[i] = remove_dollar(envp_lst, strs[i], dollar_check_quote_dq);
+			// free(temp);
+		}
 		if (strs[i][0] == '$' && strs[i][1])
 			replace_dollar(envp_lst, strs, i);
 		temp = dest;
