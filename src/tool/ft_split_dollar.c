@@ -12,57 +12,8 @@
 
 #include "../../include/minishell.h"
 
-size_t	dollar_check_quote(char const *s, char c)
-{
-	size_t	len;
-	char	temp;
-
-	len = 0;
-	temp = 0;
-	while (s[len])
-	{
-		if (!temp && s[len] == c)
-			break ;
-		else if (!temp && s[len] == '?')
-		{
-			len++;
-			break;
-		}
-		else if (len == 0 && (s[len] == '\'' || s[len] == '\"'))
-			temp = s[len];
-		else if (!temp && (s[len] == '\'' || s[len] == '\"'))
-			break ;
-		else if (temp && s[len] == temp)
-		{
-			len++;
-			break ;
-		}
-		len++;
-	}
-	return (len);
-}
-
-size_t	dollar_check_quote_dq(char const *s, char c)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-	{
-		if (s[len] == c)
-			break ;
-		else if (s[len] == '\'' || s[len] == '\"' || s[len] == ' ')
-		{
-			if (len == 0)
-				len++;
-			break;
-		}
-		len++;
-	}
-	return (len);
-}
-
-static size_t	get_size(char const *s, char c, size_t (*f)(char const *s1, char c1))
+static size_t	get_size(char const *s, char c, \
+							size_t (*f)(char const *s1, char c1))
 {
 	size_t	cnt;
 	size_t	len;
@@ -89,7 +40,8 @@ static int	free_strs(char **strs, size_t idx)
 	return (0);
 }
 
-static int	set_strs(size_t size, char **strs, char const *s, char c, size_t (*f)(char const *s1, char c1))
+static int	set_strs(size_t size, char **strs, char const *s, \
+						size_t (*f)(char const *s1, char c1))
 {
 	size_t	idx;
 	size_t	len;
@@ -97,12 +49,10 @@ static int	set_strs(size_t size, char **strs, char const *s, char c, size_t (*f)
 	idx = 0;
 	while (idx < size)
 	{
-		if (*s == c)
-			len = (*f)(s + 1, c) + 1;
+		if (*s == '$')
+			len = (*f)(s + 1, '$') + 1;
 		else
-			len = (*f)(s, c);
-		// if (len == 1 && s[len])
-		// 	len++;
+			len = (*f)(s, '$');
 		strs[idx] = (char *)malloc(len + 1);
 		if (!strs[idx])
 			return (free_strs(strs, idx));
@@ -114,7 +64,8 @@ static int	set_strs(size_t size, char **strs, char const *s, char c, size_t (*f)
 	return (1);
 }
 
-char	**ft_split_dollar(char const *s, char c, size_t (*f)(char const *s1, char c1))
+char	**ft_split_dollar(char const *s, char c, \
+							size_t (*f)(char const *s1, char c1))
 {
 	size_t	size;
 	char	**strs;
@@ -123,7 +74,7 @@ char	**ft_split_dollar(char const *s, char c, size_t (*f)(char const *s1, char c
 	strs = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!strs)
 		return (NULL);
-	if (!set_strs(size, strs, s, c, f))
+	if (!set_strs(size, strs, s, f))
 		return (NULL);
 	return (strs);
 }

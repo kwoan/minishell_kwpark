@@ -6,7 +6,7 @@
 #    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 14:20:21 by taehyunk          #+#    #+#              #
-#    Updated: 2023/01/15 17:31:36 by kwpark           ###   ########.fr        #
+#    Updated: 2023/01/15 19:02:02 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@
 		tool/ft_split_dollar.c \
 		tool/ft_strndup.c \
 		tool/remove_dollar.c \
+		tool/dollar_check_quote.c \
 		tool/remove_quote.c \
 		tool/free.c \
 		tool/ft_cmd_lst.c \
