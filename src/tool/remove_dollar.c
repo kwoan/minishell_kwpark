@@ -3,66 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 13:17:58 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 15:04:27 by taehyunk         ###   ########seoul.kr  */
+/*   Created: 2023/01/15 17:28:39 by kwpark            #+#    #+#             */
+/*   Updated: 2023/01/16 13:55:24 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	replace_quote(char *c, char *start, char *flag, char **dest)
-{
-	int		num;
-	char	*temp;
-
-	num = (*flag == *c);
-	if (!num)
-		*flag = *c;
-	*c = 0;
-	temp = *dest;
-	*dest = ft_strjoin(*dest, start + num);
-	free(temp);
-	*c = *flag;
-	if (num)
-		*flag = 0;
-}
-
-char	*remove_quote(char *str)
-{
-	char	*start;
-	char	*dest;
-	char	*temp;
-	char	flag;
-
-	if (!ft_strchr(str, '\"') && !ft_strchr(str, '\''))
-		return (str);
-	start = str;
-	flag = 0;
-	dest = ft_strdup("");
-	while (*str)
-	{
-		if ((!flag && (*str == '\'' || *str == '\"')) || (flag == *str))
-		{
-			replace_quote(&*str, start, &flag, &dest);
-			start = str;
-			if (!flag)
-				start++;
-		}
-		str++;
-	}
-	temp = dest;
-	dest = ft_strjoin(dest, start);
-	free(temp);
-	return (dest);
-}
 
 static int	check_dollar(char *str)
 {
 	while (*str && *str != '$')
 		str++;
 	return (*str == 0);
+}
+
+static int	dollar_exception(char **strs, int i)
+{
+	char	*temp;
+
+	if (strs[i][1] == '?')
+	{
+		temp = strs[i];
+		strs[i] = ft_itoa(g_exit_code);
+		free(temp);
+		return (1);
+	}
+	else if ((strs[i][1] == '\'' && ft_strchr(strs[i] + 2, '\'')) || \
+				(strs[i][1] == '\"' && ft_strchr(strs[i] + 2, '\"')))
+	{
+		temp = strs[i];
+		strs[i] = ft_strdup(strs[i] + 1);
+		free(temp);
+		return (1);
+	}
+	return (0);
 }
 
 static void	replace_dollar(t_list *e_lst, char **strs, int i)
@@ -81,6 +57,8 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 		}
 		e_lst = e_lst->next;
 	}
+	if (dollar_exception(strs, i))
+		return ;
 	if (!e_lst)
 	{
 		free(strs[i]);
@@ -88,7 +66,8 @@ static void	replace_dollar(t_list *e_lst, char **strs, int i)
 	}
 }
 
-char	*remove_dollar(t_list *envp_lst, char *str)
+char	*remove_dollar(t_list *envp_lst, char *str, \
+						size_t (*f)(char const *s1, char c1))
 {
 	char	**strs;
 	char	*dest;
@@ -97,11 +76,17 @@ char	*remove_dollar(t_list *envp_lst, char *str)
 
 	if (check_dollar(str))
 		return (str);
-	strs = ft_split_dollar(str, '$');
+	strs = ft_split_dollar(str, '$', f);
 	i = 0;
 	dest = ft_strdup("");
 	while (strs[i])
 	{
+		if (strs[i][0] == '\"' && ft_strchr(strs[i], '\"'))
+		{
+			// temp = strs[i];
+			strs[i] = remove_dollar(envp_lst, strs[i], dollar_check_quote_dq);
+			// free(temp);
+		}
 		if (strs[i][0] == '$' && strs[i][1])
 			replace_dollar(envp_lst, strs, i);
 		temp = dest;
