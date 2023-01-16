@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/10 13:05:29 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/12 17:14:49 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 //check.c
 void	check_type(t_list *lst);
+int		check_syntax_error(t_list *lst);
 //envp.c
 char	**lst_to_arr(t_list *lst);
 t_list	*check_lst(t_list *lst);

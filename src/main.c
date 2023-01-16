@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/21 18:05:25 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/12 17:17:38 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		cmd = ft_split_lst(line, ' ');
-		if (cmd)
+		check_type(cmd);
+		if (cmd && check_syntax_error(cmd))
 		{
-			check_type(cmd);
 			loop_cmd(cmd, envp_lst, home);
 			envp_lst = check_lst(envp_lst);
 		}
