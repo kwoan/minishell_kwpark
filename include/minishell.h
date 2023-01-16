@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 13:53:26 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/16 13:57:16 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ size_t	dollar_check_quote_dq(char const *s, char c);
 t_list	*ft_split_lst(char *s, char c);
 //remove.c
 char	*remove_quote(char *str);
-char	*remove_dollar(t_list *envp_lst, char *str);
+char	*remove_dollar(t_list *envp_lst, char *str, size_t (*f)(char const *s1, char c1));
 //free.c
 void	free_str_arr(char **arr);
 void	print_error_msg(char *cmd, char *str, char *msg);
