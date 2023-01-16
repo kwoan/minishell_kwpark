@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 17:03:05 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 19:21:53 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void	run_prompt(t_list *envp_lst, char *home)
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		free(line);
+		ft_lstclear(&cmd, free);
 		line = readline("minishell $ ");
 	}
 	free(line);

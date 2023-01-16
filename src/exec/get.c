@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 13:00:07 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/11 17:37:42 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 19:19:05 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_list	*get_file(t_list *cmd, int type)
 		{
 			temp = cmd->type;
 			cmd = cmd->next;
-			lst = ft_lstnew(cmd->content);
+			lst = ft_lstnew(ft_strdup(cmd->content));
 			lst->type = temp;
 			if (!start)
 				start = lst;
