@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/12 17:14:49 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 13:49:16 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ void	fd_close(int fd[2]);
 char	**ft_split_m(char const *s, char c);
 //ft_split_dollar.c
 char	**ft_split_dollar(char const *s, char c);
+//dollar_check_quote.c
+size_t	dollar_check_quote(char const *s, char c);
+size_t	dollar_check_quote_dq(char const *s, char c);
 //ft_split_lst.c
 t_list	*ft_split_lst(char *s, char c);
 //remove.c
