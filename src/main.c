@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 16:20:52 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 17:03:05 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,36 +60,29 @@ void	loop_cmd(t_list *cmd, t_list *envp_lst, char *home)
 	fd_close(data.backup);
 }
 
-t_list  *parse(char *line, t_list *envp_lst)
+t_list	*parse(char *line, t_list *envp_lst)
 {
-	t_list  *cmd;
-	t_list  *tmp;
+	t_list	*cmd;
+	t_list	*tmp;
 
 	cmd = ft_split_lst(line, ' ');
 	check_type(cmd);
 	tmp = cmd;
 	while (tmp)
 	{
-		tmp->content = remove_dollar(envp_lst, tmp->content, dollar_check_quote);
+		tmp->content
+			= remove_dollar(envp_lst, tmp->content, dollar_check_quote);
 		tmp->content = remove_quote(tmp->content);
 		tmp = tmp->next;
 	}
 	return (cmd);
 }
 
-int	main(int argc, char **argv, char **envp)
+static void	run_prompt(t_list *envp_lst, char *home)
 {
 	char	*line;
-	char	*home;
-	t_list	*envp_lst;
 	t_list	*cmd;
 
-	(void)argc;
-	(void)argv;
-	g_exit_code = 0;
-	envp_lst = copy_envp(envp);
-	home = get_envp_value(envp_lst, "HOME");
-	set_signal();
 	line = readline("minishell $ ");
 	while (1)
 	{
@@ -109,7 +102,21 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		line = readline("minishell $ ");
 	}
-	free(home);
 	free(line);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*home;
+	t_list	*envp_lst;
+
+	(void)argc;
+	(void)argv;
+	g_exit_code = 0;
+	envp_lst = copy_envp(envp);
+	home = get_envp_value(envp_lst, "HOME");
+	set_signal();
+	run_prompt(envp_lst, home);
+	free(home);
 	return (0);
 }
