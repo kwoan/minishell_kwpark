@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:22:31 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/11 11:40:48 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 16:38:23 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ static void	check_cmd(char	**str, char **path)
 	free(temp);
 }
 
+static void	check_signal_cmd(char *str)
+{
+	if (ft_strrchr(str, '/')
+		&& ft_strncmp(ft_strrchr(str, '/') + 1, "minishell", 10) == 0)
+		reset_signal();
+}
+
 int	ft_exec(t_list *env_lst, char **argv)
 {
 	pid_t	pid;
@@ -56,6 +63,7 @@ int	ft_exec(t_list *env_lst, char **argv)
 	char	**envp;
 	int		status;
 
+	check_signal_cmd(argv[0]);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -67,12 +75,11 @@ int	ft_exec(t_list *env_lst, char **argv)
 			print_error_msg2(argv[0], "", "command not found\n");
 		else
 			print_error_msg3(argv[0], "", strerror(errno));
-		if (!ft_strchr(argv[0], '/'))
-			exit(127);
-		else
-			exit(126);
+		exit(126 + (ft_strchr(argv[0], '/') == 0));
 	}
-	else
-		waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);
+	set_signal();
+	if (status == 2)
+		return (130);
 	return (status >> 8);
 }

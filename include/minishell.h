@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:21:33 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 13:57:16 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:55:30 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	fd_close(int fd[2]);
 //ft_split_m.c
 char	**ft_split_m(char const *s, char c);
 //ft_split_dollar.c
-char	**ft_split_dollar(char const *s, char c, size_t (*f)(char const *s1, char c1));
+char	**ft_split_dollar(char const *s, char c,
+			size_t (*f)(char const *s1, char c1));
 //dollar_check_quote.c
 size_t	dollar_check_quote(char const *s, char c);
 size_t	dollar_check_quote_dq(char const *s, char c);
@@ -109,7 +110,8 @@ size_t	dollar_check_quote_dq(char const *s, char c);
 t_list	*ft_split_lst(char *s, char c);
 //remove.c
 char	*remove_quote(char *str);
-char	*remove_dollar(t_list *envp_lst, char *str, size_t (*f)(char const *s1, char c1));
+char	*remove_dollar(t_list *envp_lst, char *str,
+			size_t (*f)(char const *s1, char c1));
 //free.c
 void	free_str_arr(char **arr);
 void	print_error_msg(char *cmd, char *str, char *msg);
@@ -133,4 +135,5 @@ t_list	*check_lst(t_list *lst);
 //signal
 //signal.c
 void	set_signal(void);
+void	reset_signal(void);
 #endif

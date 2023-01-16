@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 13:47:36 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:20:52 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	g_exit_code = 0;
 	envp_lst = copy_envp(envp);
 	home = get_envp_value(envp_lst, "HOME");
 	set_signal();
 	line = readline("minishell $ ");
-	g_exit_code = 0;
 	while (1)
 	{
 		if (!line)

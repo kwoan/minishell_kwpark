@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 17:38:21 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/12 17:19:33 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 14:46:15 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,31 @@ void	check_type(t_list *lst)
 	}
 }
 
+static int	print_syntax_error(char *str)
+{
+	ft_putstr_fd
+		("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("`\n", 2);
+	g_exit_code = 258;
+	return (0);
+}
+
+static int	print_file_error(char *str)
+{
+	ft_putstr_fd
+		("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	g_exit_code = 1;
+	return (0);
+}
+
 int	check_syntax_error(t_list *lst)
 {
+	t_list	*before;
+
+	before = 0;
 	while (lst)
 	{
 		if (lst->type > 1)
@@ -41,16 +64,16 @@ int	check_syntax_error(t_list *lst)
 			if ((lst->type != T_PIPE
 					&& (!lst->next || lst->next->type != T_TEXT))
 				|| (lst->type == T_PIPE
-					&& (!lst->next || lst->next->type == T_PIPE)))
+					&& (!lst->next || lst->next->type == T_PIPE))
+				|| (lst->type == T_PIPE && (!before)))
 			{
-				ft_putstr_fd
-					("minishell: syntax error near unexpected token `", 2);
-				ft_putstr_fd(lst->content, 2);
-				ft_putstr_fd("`\n", 2);
-				g_exit_code = 258;
-				return (0);
+				return (print_syntax_error(lst->content));
 			}
+			else if (lst->type == T_LEFT
+				&& access(lst->next->content, F_OK) < 0)
+				return (print_file_error(lst->next->content));
 		}
+		before = lst;
 		lst = lst->next;
 	}
 	return (1);

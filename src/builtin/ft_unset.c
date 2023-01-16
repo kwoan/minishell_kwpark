@@ -6,7 +6,7 @@
 /*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:12:11 by taehyunk          #+#    #+#             */
-/*   Updated: 2022/12/19 15:06:15 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 13:59:49 by taehyunk         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ char	*get_key(char *content)
 	equal = ft_strchr(content, '=');
 	if (equal)
 	{
-		if ((equal - 1)[0] == '+')
+		if (ft_strncmp(content, "=", 2) == 0)
+			return (ft_strdup(content));
+		else if ((equal - 1)[0] == '+')
 			len = equal - content;
 		else
 			len = equal - content + 1;
