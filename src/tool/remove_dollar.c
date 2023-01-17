@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove.c                                           :+:      :+:    :+:   */
+/*   remove_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:28:39 by kwpark            #+#    #+#             */
-/*   Updated: 2023/01/16 13:55:24 by kwpark           ###   ########.fr       */
+/*   Updated: 2023/01/17 13:45:07 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ char	*remove_dollar(t_list *envp_lst, char *str, \
 	while (strs[i])
 	{
 		if (strs[i][0] == '\"' && ft_strchr(strs[i], '\"'))
-		{
-			// temp = strs[i];
 			strs[i] = remove_dollar(envp_lst, strs[i], dollar_check_quote_dq);
-			// free(temp);
-		}
 		if (strs[i][0] == '$' && strs[i][1])
 			replace_dollar(envp_lst, strs, i);
 		temp = dest;
@@ -95,5 +91,6 @@ char	*remove_dollar(t_list *envp_lst, char *str, \
 		i++;
 	}
 	free_str_arr(strs);
+	free(str);
 	return (dest);
 }

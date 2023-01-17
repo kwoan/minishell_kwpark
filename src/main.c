@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taehyunk <taehyunk@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:02 by taehyunk          #+#    #+#             */
-/*   Updated: 2023/01/16 19:21:53 by taehyunk         ###   ########seoul.kr  */
+/*   Updated: 2023/01/17 13:44:52 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_list	*parse(char *line, t_list *envp_lst)
 {
 	t_list	*cmd;
 	t_list	*tmp;
+	char	*to_free;
 
 	cmd = ft_split_lst(line, ' ');
 	check_type(cmd);
@@ -72,7 +73,10 @@ t_list	*parse(char *line, t_list *envp_lst)
 	{
 		tmp->content
 			= remove_dollar(envp_lst, tmp->content, dollar_check_quote);
+		to_free = tmp->content;
 		tmp->content = remove_quote(tmp->content);
+		if (to_free != tmp->content)
+			free(to_free);
 		tmp = tmp->next;
 	}
 	return (cmd);
